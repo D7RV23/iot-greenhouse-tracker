@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: greenhouse_db
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD} # pull from .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+      - ./backups:/mnt/backup_drive
+      - ./init:/docker-entrypoint-initdb.d
+  tester:
+    build: .
+    container_name: greenhouse_tester
+    depends_on:
+      - db
+    tty: true # so the container does not close immediately
