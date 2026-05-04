@@ -1,13 +1,11 @@
 import os
 import io
 import base64
-from flask import Flask, render_template
 import psycopg2
 from dotenv import load_dotenv
 from GreenhouseGraph import create_greenhouse_graph
 
 load_dotenv()
-flask_app = Flask(__name__)
 
 def get_data():
     # Connect to db and get temperature and humidity data every 24 hours
@@ -25,16 +23,28 @@ def get_data():
     conn.close()
     return rows # Return list of tuples (temp, hum)
 
-@flask_app.route('/')
-def index():
-    data = get_data()
+def update_website():
+    data = get_data() 
     
     fig = create_greenhouse_graph(data)
-
-    # Convert plot to PNG image for HTML
-    img = io.BytesIO()
+    
+    # convert graph to base64 string
+    img = io.BytesIO() 
     fig.savefig(img, format='png')
     img.seek(0)
     graph_url = base64.b64encode(img.getvalue()).decode()
+    
+    with open("index.html", "r") as f:
+        template = f.read()
 
-    return render_template('index.html', graph=graph_url, temp=data[0][0], hum=data[0][1])
+    final_html = template.replace("{{TEMP}}", str(data[0][0]))
+    final_html = template.replace("{{HUM}}", str(data[0][1]))
+    final_html = template.replace("{{GRAPH_BASE64}}", graph_url)
+
+    # push to apache
+    with open("/var/www/html/index.html", "w") as f:
+        f.write(final_html)
+
+if __name__ == "__main__":
+    update_website()
+    print("Website updated successfully.")
