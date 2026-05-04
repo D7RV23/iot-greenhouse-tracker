@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  /* Basic Page Styling */
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    background-color: #f9fbf9; /* faint green */
+  }
+
+  h1 {
+    color: #2d5a27; /* dark forest green */
+    border-bottom: 2px solid #a8dadc; /* thin line that separates title and body */
+    padding-bottom: 10px;
+  }
+
+  p {
+    font-size: 1.1rem; /* scale up font size */
+  }
+
+  /* Table Styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #4CAF50; /* green */
+    color: white;
+    width: 40%;
+  }
+
+/* Zebra striping for large tables */
+/* tr:nth-child(even) {		
+    background-color: #f2f2f2;
+  } */ 
+
+  /* Placeholder for the graph */
+  .graph-container {
+    background: #eef5ee;
+    border: 2px dashed #8bc34a;
+    padding: 40px;
+    text-align: center;
+    border-radius: 8px;
+    color: #555;
+  }
+</style>
+</head>
+<body>
+
+<h1>Greenhouse Data Center</h1>
+<p>The current temperature and humidity of the Greenhouse</p>
+
+<table>
+  <tr>
+    <th>Temperature (<sup>o</sup>C)</th>
+    <td>{{TEMP}}</td> 
+  </tr>
+  <tr>
+    <th>Humidity</th>
+    <td>{{HUM}}</td>
+  </tr>
+</table>
+
+<h3>The Day's Temperature and Humidity</h3>
+
+<div class="graph-container">
+  <img src="data:image/png;base64,{{GRAPH_BASE64}}" alt="Greenhouse Graph" style="width:100%;">
+</div>
+
+</body>
+</html>
