@@ -1,6 +1,9 @@
 # iot-greenhouse-tracker
 Group Project for CS/ECE 459 Internet of Things
 
+### About our project
+Additional information about this project can be viewed [here](https://sunypoly-my.sharepoint.com/:w:/g/personal/rushjt2_sunypoly_edu/IQDH7409ovskRacF8t6-K_OQAQ0zAWS53DbY83WNL7DPOf4?e=WhfBQE)
+
 ### Setup SQL server
 Verify that you have the following directory structure:
 ```
